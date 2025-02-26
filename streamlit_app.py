@@ -34,9 +34,9 @@ with st.sidebar:
 
     # Model parameters (can adjust as needed)
     st.subheader('Model Parameters')
-    temp = st.slider('temperature', min_value=0.01, max_value=2.0, value=0.2, step=0.01)
+    temp = st.slider('temperature', min_value=0.01, max_value=2.0, value=1.4, step=0.01)
     topp = st.slider('top_p', min_value=0.01, max_value=1.0, value=0.8, step=0.01)
-    maxt = st.slider('max_tokens', min_value=100, max_value=2000, value=1000, step=100)
+    maxt = st.slider('max_tokens', min_value=100, max_value=2000, value=1500, step=100)
 
 # Initialize or load chat messages
 if "messages" not in st.session_state:
@@ -76,7 +76,6 @@ def generate_gemini_response(prompt_input):
             stream=True  # Enable streaming
         )
         
-        reasoning_content = ""
         content = ""
         
         # Process chunks of the streamed response
