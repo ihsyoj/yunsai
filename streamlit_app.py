@@ -85,9 +85,6 @@ def generate_gemini_response(prompt_input):
                 # Add the content to the result
                 content += chunk.choices[0].delta.content
 
-        # Append the content to the session history
-        st.session_state.messages.append({"role": "assistant", "content": content})
-        
         # Return the complete content
         return content
 
