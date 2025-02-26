@@ -34,9 +34,9 @@ with st.sidebar:
 
     # Model parameters (can adjust as needed)
     st.subheader('Model Parameters')
-    temperature = st.slider('temperature', min_value=0.01, max_value=1.0, value=0.2, step=0.01)
-    top_p = st.slider('top_p', min_value=0.01, max_value=1.0, value=0.8, step=0.01)
-    max_tokens = st.slider('max_tokens', min_value=100, max_value=2000, value=1000, step=100)
+    temp = st.slider('temperature', min_value=0.01, max_value=2.0, value=0.2, step=0.01)
+    topp = st.slider('top_p', min_value=0.01, max_value=1.0, value=0.8, step=0.01)
+    maxt = st.slider('max_tokens', min_value=100, max_value=2000, value=1000, step=100)
 
 # Initialize or load chat messages
 if "messages" not in st.session_state:
@@ -69,9 +69,9 @@ def generate_gemini_response(prompt_input):
         response = client.chat.completions.create(
             model="gemini-1.5-flash",  # Your Gemini model
             messages=conversation,  # List of messages
-            temperature=1.2,
-            top_p=0.9,
-            max_tokens=200,
+            temperature=temp,
+            top_p=topp,
+            max_tokens=maxt,
             timeout=60,
             stream=True  # Enable streaming
         )
@@ -84,7 +84,6 @@ def generate_gemini_response(prompt_input):
             # Check if reasoning_content exists in the chunk
                 # Add the content to the result
                 content += chunk.choices[0].delta.content
-                print(chunk.choices[0].delta.content, end="")
 
         # Append the content to the session history
         st.session_state.messages.append({"role": "assistant", "content": content})
